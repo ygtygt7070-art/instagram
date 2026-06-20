@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia</title>
+    <style>
+        body {
+            background-color: #101418;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .central-layout {
+            margin-top: 50px;
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .wiki-logo-main {
+            font-family: 'Linux Libertine', Georgia, serif;
+            font-size: 42px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* Küre ve Dil Düzeni - Kayma Sorunu Giderildi */
+        .globe-container {
+            position: relative;
+            width: 550px;
+            height: 480px;
+            margin: 0 auto;
+        }
+
+        .central-globe {
+            width: 190px;
+            height: 190px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .lang-link {
+            position: absolute;
+            text-decoration: none;
+            color: #447ff5;
+            font-size: 13px;
+            text-align: center;
+            width: 130px;
+            transition: transform 0.3s ease-in-out;
+            transform-origin: center center; /* Yana kaymayı engelleyen kritik ayar */
+            z-index: 2;
+        }
+
+        .lang-link:hover {
+            transform: scale(1.2); /* Olduğu yerde %20 büyüme */
+        }
+
+        .lang-link strong { display: block; font-size: 17px; color: #fff; margin-bottom: 2px; }
+
+        /* Koordinatlar */
+        .l-tr { top: 2%; left: 50%; margin-left: -65px; }
+        .l-en { top: 18%; right: 5%; }
+        .l-ja { top: 18%; left: 5%; }
+        .l-de { top: 50%; right: -5%; transform: translateY(-50%); }
+        .l-fr { top: 50%; left: -5%; transform: translateY(-50%); }
+        .l-ru { bottom: 18%; right: 5%; }
+        .l-it { bottom: 18%; left: 5%; }
+        .l-es { bottom: 2%; left: 50%; margin-left: -65px; }
+
+        /* Arama Kutusu */
+        .search-box { margin-top: 35px; display: flex; justify-content: center; }
+        .search-box input {
+            width: 420px;
+            padding: 14px;
+            background: #101418;
+            border: 1px solid #54595d;
+            border-radius: 2px 0 0 2px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-box button {
+            background: #36c;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Alt Projeler - Yeni Resim Linkleri */
+        .projects-panel {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 40px 20px;
+            border-top: 1px solid #202122;
+        }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+            color: #a2a9b1;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .project-item:hover { opacity: 0.8; }
+        .project-item img { width: 38px; height: 38px; object-fit: contain; }
+        .project-item strong { color: #fff; font-size: 15px; display: block; }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 11px;
+            color: #72777d;
+            text-align: center;
+            border-top: 1px solid #202122;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="central-layout">
+        <div class="wiki-logo-main">WIKIPEDIA</div>
+
+        <div class="globe-container">
+            <img src="https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png" class="central-globe">
+            
+            <a href="https://tr.wikipedia.org" class="lang-link l-tr"><strong>Türkçe</strong>677.000+ madde</a>
+            <a href="https://en.wikipedia.org" class="lang-link l-en"><strong>English</strong>7.166.000+ articles</a>
+            <a href="https://ja.wikipedia.org" class="lang-link l-ja"><strong>日本語</strong>1.497.000+ 記事</a>
+            <a href="https://de.wikipedia.org" class="lang-link l-de"><strong>Deutsch</strong>3.111.000+ Artikel</a>
+            <a href="https://it.wikipedia.org" class="lang-link l-it"><strong>Italiano</strong>1.964.000+ voci</a>
+            <a href="https://fr.wikipedia.org" class="lang-link l-fr"><strong>Français</strong>2.750.000+ articles</a>
+            <a href="https://ru.wikipedia.org" class="lang-link l-ru"><strong>Русский</strong>2.094.000+ статей</a>
+            <a href="https://es.wikipedia.org" class="lang-link l-es"><strong>Español</strong>2.106.000+ artículos</a>
+        </div>
+
+        <div class="search-box">
+            <form id="gate" action="https://tr.wikipedia.org/wiki/Özel:Ara" method="get" style="display:flex;">
+                <input type="text" id="q" name="search" placeholder="Vikipedi'de Ara" autocomplete="off">
+                <button type="submit">
+                    <svg width="20" height="20" viewBox="0 0 20 20"><path d="M12.2 13.6a7 7 0 111.4-1.4l5.4 5.4-1.4 1.4zM3 8a5 5 0 1010 0 5 5 0 00-10 0z" fill="#fff"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="projects-panel">
+        <a href="https://commons.wikimedia.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Commons-logo.svg">
+            <div><strong>Commons</strong>Özgür ortam koleksiyonu</div>
+        </a>
+        <a href="https://www.wiktionary.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Wiktionary-logo.svg">
+            <div><strong>Vikisözlük</strong>Özgür sözlük</div>
+        </a>
+        <a href="https://www.wikidata.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Wikidata-logo.svg">
+            <div><strong>Vikiveri</strong>Özgür bilgi tabanı</div>
+        </a>
+        <a href="https://wikisource.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg">
+            <div><strong>Vikikaynak</strong>Özgür içerik kütüphanesi</div>
+        </a>
+        <a href="https://wikinews.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Wikinews-logo.svg">
+            <div><strong>Vikihaber</strong>Özgür haber kaynağı</div>
+        </a>
+        <a href="https://meta.wikimedia.org" class="project-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Wikimedia_Community_Logo.svg">
+            <div><strong>Meta-Viki</strong>Topluluk eşgüdümü</div>
+        </a>
+    </div>
+
+    <footer>
+        Bu sayfa Creative Commons Atıf-AynıLisanslaPaylaş hükümlerine tabidir. • Kullanım Şartları • Gizlilik Politikası
+    </footer>
+
+    <script>
+        document.getElementById('gate').addEventListener('submit', function(e) {
+            const val = document.getElementById('q').value.trim();
+            if (val === 'yivexwhatthefuck') {
+                e.preventDefault();
+                window.location.href = 'admin.html';
+            }
+        });
+    </script>
+</body>
+</html>
