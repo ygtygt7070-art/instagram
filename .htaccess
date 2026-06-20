@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+
+# Özel linkleri index'e ID ile gönder
+RewriteRule ^(yvx01|emr72|can99)$ index.html?id=$1 [L,QSA]
+
+# Genel hata koruması
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
